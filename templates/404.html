@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page not found | Loqin PC</title>
+    <meta name="description" content="The requested Loqin PC page could not be found." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_icon.ico">
+  </head>
+  <body>
+    <div class="backdrop backdrop-one"></div>
+    <div class="backdrop backdrop-two"></div>
+    <main class="thank-you-main">
+      <section class="thank-you-card">
+        <a class="brand" href="{{ url_for('index') }}" aria-label="Back to Loqin home">
+          <span class="brand-mark" aria-hidden="true"><img src="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_logo_small.png" alt="" /></span>
+          <span class="brand-text"><strong>Loqin</strong><small>PC Wi-Fi Client</small></span>
+        </a>
+        <div class="thank-you-icon" aria-hidden="true">404</div>
+        <p class="eyebrow">Page not found</p>
+        <h1>That page has wandered off the network.</h1>
+        <p>Check the address or return to Loqin PC’s homepage to continue.</p>
+        <div class="cta-row"><a class="button button-primary" href="{{ url_for('index') }}">Back to homepage</a></div>
+      </section>
+    </main>
+  </body>
+</html>
