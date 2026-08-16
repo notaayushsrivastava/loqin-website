@@ -10,26 +10,203 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_icon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+      .layout-container {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      
+      /* Stack vertically on smaller screens */
+      @media (max-width: 900px) {
+        .layout-container {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      .release-notes-card {
+        flex: 1;
+        max-width: 500px;
+        width: 100%;
+        text-align: left; /* Overrides center alignment if present in base card */
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .release-notes-card h2 {
+        font-size: 1.25rem;
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .release-notes-card .version-badge {
+        background: qlineargradient(to right, #66c7ff, #bb7cff);
+        color: #05111c;
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+      
+      .release-body {
+        color: #a7b0d6;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+      
+      .release-body ul {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+      
+      .release-body li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .release-body strong {
+        color: #eff6ff;
+        font-weight: 600;
+      }
+      
+      .release-body code {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.1rem 0.3rem;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      
+      .repo-link {
+        display: inline-block;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        color: #66c7ff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+      }
+      
+      .repo-link:hover {
+        color: #82d4ff;
+        text-decoration: underline;
+      }
+      
+      .loading-text {
+        color: #a7b0d6;
+        font-size: 0.95rem;
+        font-style: italic;
+      }
+
+      .version-badge {
+        background: linear-gradient(135deg, #66c7ff 0%, #bb7cff 100%);
+        color: #05111c;
+        
+        padding: 4px 10px;
+        margin-left: 8px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+        
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        
+        box-shadow: 0 2px 10px rgba(187, 124, 255, 0.2);
+      }
+    </style>
   </head>
   <body>
     <div class="backdrop backdrop-one"></div>
     <div class="backdrop backdrop-two"></div>
+    
     <main class="thank-you-main">
-      <section class="thank-you-card">
-        <a class="brand" href="{{ url_for('index') }}" aria-label="Back to Loqin home">
-          <span class="brand-mark" aria-hidden="true"><img src="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_logo_small.png" alt="" /></span>
-          <span class="brand-text"><strong>Loqin</strong><small>PC Wi-Fi Client</small></span>
-        </a>
-        <div class="thank-you-icon" aria-hidden="true">&#10003;</div>
-        <p class="eyebrow">Download started</p>
-        <h1>Thank you for downloading Loqin PC.</h1>
-        <p>Your installer should open shortly. Once it is ready, run it and follow the setup wizard to get connected.</p>
-        <div class="cta-row">
-          <a class="button button-primary" href="{{ url_for('installer') }}" target="loqin-installer">Download again</a>
-          <a class="button button-secondary" href="{{ url_for('index') }}">Back to homepage</a>
-        </div>
-      </section>
+      <div class="layout-container">
+        
+        <!-- Primary Thank You Card -->
+        <section class="thank-you-card">
+          <a class="brand" href="{{ url_for('index') }}" aria-label="Back to Loqin home">
+            <span class="brand-mark" aria-hidden="true"><img src="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_logo_small.png" alt="" /></span>
+            <span class="brand-text"><strong>Loqin</strong><small>PC Wi-Fi Client</small></span>
+          </a>
+          <div class="thank-you-icon" aria-hidden="true">&#10003;</div>
+          <p class="eyebrow">Download started</p>
+          <h1>Thank you for downloading Loqin PC.</h1>
+          <p>Your installer should open shortly. Once it is ready, run it and follow the setup wizard to get connected.</p>
+          <div class="cta-row">
+            <a class="button button-primary" href="{{ url_for('installer') }}" target="loqin-installer">Download again</a>
+            <a class="button button-secondary" href="{{ url_for('index') }}">Back to homepage</a>
+          </div>
+        </section>
+
+        <!-- Dynamic Release Notes Card (Reuses .thank-you-card for consistent styling) -->
+        <section class="thank-you-card release-notes-card" id="release-notes-container">
+          <div class="loading-text">Fetching latest release notes from GitHub...</div>
+        </section>
+
+      </div>
     </main>
+    
     <iframe class="download-frame" name="loqin-installer" src="{{ url_for('installer') }}" title="Loqin installer download"></iframe>
+
+    <!-- Script to fetch and render GitHub Release Notes -->
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const container = document.getElementById('release-notes-container');
+        const repoUrl = 'https://api.github.com/repos/notaayushsrivastava/Loqin/releases/latest';
+
+        try {
+          const response = await fetch(repoUrl);
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch release data.');
+          }
+
+          const releaseData = await response.json();
+          const version = releaseData.tag_name || 'Latest';
+          const releaseBody = releaseData.body || 'No release notes provided for this version.';
+          const releaseUrl = releaseData.html_url || 'https://github.com/notaayushsrivastava/Loqin/releases';
+
+          // Convert Markdown to HTML
+          const htmlContent = marked.parse(releaseBody);
+
+          container.innerHTML = `
+            <h2>What's New <span class="version-badge">${version}</span></h2>
+            <div class="release-body">${htmlContent}</div>
+            <a class="repo-link" href="${releaseUrl}" target="_blank" rel="noopener noreferrer">
+              View full release on GitHub &rarr;
+            </a>
+          `;
+        } catch (error) {
+          console.error('Error loading release notes:', error);
+          container.innerHTML = `
+            <h2>Latest Updates</h2>
+            <div class="release-body">
+              <p>Unable to load the latest release notes at this time.</p>
+            </div>
+            <a class="repo-link" href="https://github.com/notaayushsrivastava/Loqin/releases" target="_blank" rel="noopener noreferrer">
+              Checkout all releases on GitHub &rarr;
+            </a>
+          `;
+        }
+      });
+    </script>
   </body>
 </html>
