@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_icon.ico">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='loqin_icon.ico')}}">
   </head>
   <body>
     <div class="backdrop backdrop-one"></div>
@@ -25,7 +25,7 @@
       <a class="brand" href="{{ url_for('index') }}" aria-label="Loqin home">
         <span class="brand-mark" aria-hidden="true">
           <img
-            src="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/loqin_logo_small.png"
+            src="{{url_for('static', filename = 'loqin_logo_small.png')}}"
             alt=""
           />
         </span>
@@ -77,7 +77,7 @@
         <div class="hero-card skeleton-card">
           <div class="banner-frame">
             <img
-              src="https://raw.githubusercontent.com/notaayushsrivastava/Loqin/refs/heads/master/assets/wizard_banner.bmp"
+              src="{{url_for('static', filename = 'wizard_banner.bmp')}}"
               alt="Loqin wizard banner"
             />
             <div class="banner-overlay">
@@ -264,7 +264,7 @@
 
         <div class="developer-card skeleton-card scroll-skeleton" data-load-on-scroll>
           <div class="avatar">
-            <img src="https://avatars.githubusercontent.com/u/153167411?v=4" alt="Aayush Srivastava" />
+            <img src="{{url_for('static', filename='153167411.png')}}" alt="Aayush Srivastava" />
           </div>
           <div>
             <h3>Aayush Srivastava</h3>
