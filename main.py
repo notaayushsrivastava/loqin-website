@@ -24,6 +24,14 @@ def download():
 def installer():
     return redirect(INSTALLER_URL)
 
+@app.get('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.get('/license')
+def license_page():
+    return render_template('license.html')
+
 
 @app.errorhandler(404)
 def page_not_found(error):
