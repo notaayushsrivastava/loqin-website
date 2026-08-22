@@ -12,23 +12,69 @@ app = Flask(__name__, static_folder='public', static_url_path='')
 
 INSTALLER_URL = (
     'https://github.com/notaayushsrivastava/Loqin/releases/latest/download/'
-    'Install_loqin.exe'
+    'Install_Loqin.exe'
+)
+MAC_OS_INSTALLER_URL = (
+    'https://github.com/notaayushsrivastava/Loqin/releases/latest/download/'
+    'Install_Loqin_macOS.dmg'
 )
 NOTIFICATION_FILE = Path(app.static_folder) / 'notification.json'
 
 
+def detect_client_os(user_agent: str) -> str:
+    ua = (user_agent or '').lower()
+    if 'android' in ua:
+        return 'android'
+    if 'mac os x' in ua or 'macintosh' in ua:
+        return 'mac'
+    if 'windows' in ua:
+        return 'windows'
+    return 'unknown'
+
+
 @app.get('/')
 def index():
-    return render_template('index.html')
+    return render_template(
+        'index.html',
+        windows_installer_url=INSTALLER_URL,
+        mac_installer_url=MAC_OS_INSTALLER_URL,
+    )
 
 
 @app.get('/download')
 def download():
-    return render_template('thank-you.html')
+    client_os = detect_client_os(request.user_agent.string)
+    requested_os = (request.args.get('os') or '').lower()
+
+    if client_os == 'android':
+        return render_template(
+            'android.html',
+            windows_installer_url=INSTALLER_URL,
+            mac_installer_url=MAC_OS_INSTALLER_URL,
+        )
+
+    selected_os = requested_os if requested_os in ('windows', 'mac') else None
+    return render_template(
+        'thank-you.html',
+        windows_installer_url=INSTALLER_URL,
+        mac_installer_url=MAC_OS_INSTALLER_URL,
+        selected_os=selected_os,
+    )
 
 
 @app.get('/installer')
 def installer():
+    forced_os = (request.args.get('os') or '').lower()
+    if forced_os == 'mac':
+        return redirect(MAC_OS_INSTALLER_URL)
+    if forced_os == 'windows':
+        return redirect(INSTALLER_URL)
+
+    client_os = detect_client_os(request.user_agent.string)
+    if client_os == 'android':
+        return redirect('/download')
+    if client_os == 'mac':
+        return redirect(MAC_OS_INSTALLER_URL)
     return redirect(INSTALLER_URL)
 
 @app.get('/privacy')
