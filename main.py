@@ -134,23 +134,31 @@ def installer():
 
 
 VERSION_PATTERN = re.compile(r'^[0-9A-Za-z\.\-]+$')
+ALLOWED_DOWNLOAD_FILES = {
+    'Loqin_Store.msix': 'application/msix',
+    'Install_Loqin_WinGet.exe': 'application/vnd.microsoft.portable-executable',
+}
 
 
+@app.get('/downloads/<version>/Loqin_Store.msix')
 @app.get('/downloads/<version>/Install_Loqin_WinGet.exe')
-def download_winget_installer(version: str):
+def download_versioned_installer(version: str):
     if not VERSION_PATTERN.match(version):
         abort(404)
 
+    filename = request.path.rsplit('/', 1)[-1]
+    mimetype = ALLOWED_DOWNLOAD_FILES.get(filename, 'application/octet-stream')
+
     downloads_dir = Path(app.static_folder) / 'downloads' / version
-    file_path = downloads_dir / 'Install_Loqin_WinGet.exe'
+    file_path = downloads_dir / filename
     if not file_path.is_file():
         abort(404)
 
     response = send_from_directory(
         downloads_dir,
-        'Install_Loqin_WinGet.exe',
+        filename,
         as_attachment=True,
-        mimetype='application/vnd.microsoft.portable-executable',
+        mimetype=mimetype,
     )
     response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
     return response
