@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Loqin for macOS | VIT Hostel Wi-Fi Client Setup Guide{% endblock %}
+
+{% block description %}Step-by-step guide to installing and configuring Loqin on macOS 11+. Automate VIT hostel Wi-Fi captive portal login with native Apple Keychain security.{% endblock %}
+
+{% block canonical %}https://loqin.aayushsrivastava.com/macos{% endblock %}
+
+{% block content %}
+<main class="guide-main">
+  <div class="page-hero">
+    <p class="eyebrow">macOS Documentation</p>
+    <h1>Loqin for macOS Setup Guide</h1>
+    <p class="lede">
+      Complete walkthrough for running Loqin on macOS. Keep your MacBook connected to VIT hostel Wi-Fi automatically from the menu bar without repetitive captive portal logins.
+    </p>
+    <div class="badge-row">
+      <span class="badge badge-accent">macOS 11 (Big Sur) to Sequoia+</span>
+      <span class="badge">Apple Silicon (M1–M4) & Intel</span>
+      <span class="badge badge-purple">Apple Keychain Services</span>
+    </div>
+  </div>
+
+  <div class="guide-container">
+    <section class="guide-card">
+      <h2>1. Installation Walkthrough</h2>
+      <p>
+        Follow these steps to set up Loqin on your Mac:
+      </p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Download the macOS Disk Image</h4>
+            <p>Get <code>Install_Loqin_macOS.dmg</code> from our <a href="{{ url_for('download') }}">Download Hub</a> or GitHub Releases.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Drag to Applications</h4>
+            <p>Double-click the downloaded <code>.dmg</code> file to mount it, then drag the <strong>Loqin</strong> application icon into your <code>Applications</code> folder.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>First Launch & Gatekeeper Verification</h4>
+            <p>Because Loqin is an open-source student project without an Apple Developer ID signature, macOS Gatekeeper may display a prompt. Right-click (or Control-click) Loqin in Applications and select <strong>Open</strong>, then confirm by clicking <strong>Open</strong> in the dialog.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Configure Your Login Details</h4>
+            <p>When prompted on first launch, input your VIT registration number and Wi-Fi password. Loqin immediately saves them into your native macOS Keychain.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Access via the Menu Bar</h4>
+            <p>Loqin lives in your top menu bar as a discreet status icon, actively monitoring connectivity and authenticating behind the scenes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="button button-primary button-with-logo" href="{{ url_for('download_thanks', os='mac') }}">
+          <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
+          </svg>
+          <span>Download macOS Disk Image</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="guide-card">
+      <h2>2. Apple Keychain Storage & Security</h2>
+      <p>
+        On macOS, credentials are protected by the operating system’s cryptographic storage:
+      </p>
+      <ul>
+        <li><strong>Apple Keychain Services:</strong> Passwords are encrypted using your Mac login password via the system Keychain.</li>
+        <li><strong>Zero Plaintext Storage:</strong> No plaintext password files or unencrypted caches exist on your drive.</li>
+        <li><strong>Local Scope:</strong> Network requests containing login tokens are transmitted solely to the local hostel captive portal IP address.</li>
+      </ul>
+      <div class="callout">
+        <strong>Launch on Login Tip:</strong> To launch Loqin automatically when your Mac boots, open <strong>System Settings &rarr; General &rarr; Login Items</strong>, click the <strong>+</strong> button under "Open at Login", and add <em>Loqin</em> from Applications.
+      </div>
+    </section>
+
+    <section class="guide-card">
+      <h2>3. macOS Menu Bar Controls</h2>
+      <p>
+        Clicking the Loqin icon in your top menu bar gives you access to quick operations:
+      </p>
+      <ul>
+        <li><strong>Connection Status:</strong> Displays whether your captive portal session is active, authenticating, or offline.</li>
+        <li><strong>Connect Now:</strong> Triggers an on-demand re-authentication attempt.</li>
+        <li><strong>Pause / Resume:</strong> Suspends automated background pings when connected to personal mobile hotspot or off-campus networks.</li>
+        <li><strong>Update Credentials:</strong> Re-enter your registration credentials whenever you update your VIT Wi-Fi password.</li>
+        <li><strong>Quit:</strong> Closes the app and unloads background tasks.</li>
+      </ul>
+    </section>
+
+    <section class="guide-card">
+      <h2>4. Uninstallation & Removal</h2>
+      <p>
+        To remove Loqin from your Mac:
+      </p>
+      <ol>
+        <li>Quit Loqin from the top menu bar.</li>
+        <li>Open Finder and navigate to your <strong>Applications</strong> folder.</li>
+        <li>Drag <strong>Loqin</strong> to the Trash and empty the Trash.</li>
+        <li>(Optional) If you want to remove the stored password token, open <strong>Keychain Access</strong>, search for <code>Loqin</code>, and delete the entry.</li>
+      </ol>
+      <div class="cta-row">
+        <a class="button button-secondary" href="{{ url_for('troubleshooting') }}">Captive Portal Troubleshooting &rarr;</a>
+        <a class="button button-ghost" href="{{ url_for('faq') }}">Read macOS FAQs</a>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

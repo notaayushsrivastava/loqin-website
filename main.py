@@ -4,7 +4,16 @@ import os
 from pathlib import Path
 from datetime import datetime
 
-from flask import Flask, abort, jsonify, redirect, render_template, request
+from flask import (
+    Flask,
+    abort,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
 
 # Vercel serves public/ from its CDN. Flask exposes the same directory locally,
 # so template asset URLs work the same in development and production.
@@ -44,8 +53,6 @@ def index():
 @app.get('/download')
 def download():
     client_os = detect_client_os(request.user_agent.string)
-    requested_os = (request.args.get('os') or '').lower()
-
     if client_os == 'android':
         return render_template(
             'android.html',
@@ -53,13 +60,60 @@ def download():
             mac_installer_url=MAC_OS_INSTALLER_URL,
         )
 
-    selected_os = requested_os if requested_os in ('windows', 'mac') else None
+    return render_template(
+        'download.html',
+        windows_installer_url=INSTALLER_URL,
+        mac_installer_url=MAC_OS_INSTALLER_URL,
+        client_os=client_os,
+    )
+
+
+@app.get('/download/thanks')
+def download_thanks():
+    client_os = detect_client_os(request.user_agent.string)
+    requested_os = (request.args.get('os') or '').lower()
+    selected_os = requested_os if requested_os in ('windows', 'mac') else (client_os if client_os in ('windows', 'mac') else None)
+
     return render_template(
         'thank-you.html',
         windows_installer_url=INSTALLER_URL,
         mac_installer_url=MAC_OS_INSTALLER_URL,
         selected_os=selected_os,
     )
+
+
+# Backward-compatibility alias for /thank-you if anyone visited previously
+@app.get('/thank-you')
+def thank_you_legacy():
+    return redirect(url_for('download_thanks', **request.args))
+
+
+@app.get('/windows')
+def windows_guide():
+    return render_template(
+        'windows.html',
+        windows_installer_url=INSTALLER_URL,
+        mac_installer_url=MAC_OS_INSTALLER_URL,
+    )
+
+
+@app.get('/macos')
+def macos_guide():
+    return render_template(
+        'macos.html',
+        windows_installer_url=INSTALLER_URL,
+        mac_installer_url=MAC_OS_INSTALLER_URL,
+    )
+
+
+@app.get('/troubleshooting')
+def troubleshooting():
+    return render_template('troubleshooting.html')
+
+
+@app.get('/faq')
+def faq():
+    return render_template('faq.html')
 
 
 @app.get('/installer')
@@ -77,13 +131,26 @@ def installer():
         return redirect(MAC_OS_INSTALLER_URL)
     return redirect(INSTALLER_URL)
 
+
 @app.get('/privacy')
 def privacy():
     return render_template('privacy.html')
 
+
 @app.get('/license')
 def license_page():
     return render_template('license.html')
+
+
+@app.get('/robots.txt')
+def robots_txt():
+    return send_from_directory(app.static_folder, 'robots.txt', mimetype='text/plain')
+
+
+@app.get('/sitemap.xml')
+def sitemap_xml():
+    return send_from_directory(app.static_folder, 'sitemap.xml', mimetype='application/xml')
+
 
 @app.post('/push-notifications')
 def push_notifications():
@@ -104,11 +171,13 @@ def push_notifications():
         return jsonify(error='title, and body are required.'), 400
 
     notification = {field: payload[field] for field in required_fields}
+    notification['created_at'] = datetime.now().isoformat()
     NOTIFICATION_FILE.write_text(
-        json.dumps(notification.update({'created_at':datetime.now().isoformat()}), ensure_ascii=False, indent=2) + '\n',
+        json.dumps(notification, ensure_ascii=False, indent=2) + '\n',
         encoding='utf-8',
     )
     return jsonify(notification), 200
+
 
 @app.get('/push-notifications')
 def get_notif():
@@ -118,6 +187,7 @@ def get_notif():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

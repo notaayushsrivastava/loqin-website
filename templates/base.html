@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Loqin | VIT Hostel Wi-Fi Auto Login for Windows & macOS{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block description %}Automatically reconnect to VIT hostel Wi-Fi with Loqin, a lightweight client for Windows and macOS. Seamless captive portal re-authentication.{% endblock %}"
+    />
+    <link rel="canonical" href="{% block canonical %}https://loqin.aayushsrivastava.com/{% endblock %}" />
+    {% block extra_meta %}{% endblock %}
+
+    <!-- Open Graph & Social Cards -->
+    <meta property="og:site_name" content="Loqin" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}" />
+    <meta property="og:url" content="{% block og_url %}{{ self.canonical() }}{% endblock %}" />
+    <meta property="og:image" content="https://loqin.aayushsrivastava.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{% block twitter_title %}{{ self.title() }}{% endblock %}" />
+    <meta name="twitter:description" content="{% block twitter_description %}{{ self.description() }}{% endblock %}" />
+    <meta name="twitter:image" content="https://loqin.aayushsrivastava.com/og-image.png" />
+
+    <meta name="google-site-verification" content="wESkyRU-RQyEaa_1OSwIGPUmGgT1EUUKeFDbYbPnvfk" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='loqin_icon.ico') }}" />
+
+    {% block jsonld %}{% endblock %}
+  </head>
+  <body>
+    <div class="backdrop backdrop-one"></div>
+    <div class="backdrop backdrop-two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="{{ url_for('index') }}" aria-label="Loqin home">
+        <span class="brand-mark" aria-hidden="true">
+          <img
+            src="{{ url_for('static', filename='loqin_logo_small.png') }}"
+            alt="Loqin logo"
+            width="34"
+            height="34"
+          />
+        </span>
+        <span class="brand-text">
+          <strong>Loqin</strong>
+          <small>Wi-Fi Client</small>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="{{ url_for('index') }}#features">Features</a>
+        <a href="{{ url_for('windows_guide') }}">Windows Guide</a>
+        <a href="{{ url_for('macos_guide') }}">macOS Guide</a>
+        <a href="{{ url_for('troubleshooting') }}">Troubleshooting</a>
+        <a href="{{ url_for('faq') }}">FAQ</a>
+        <a class="button button-secondary" href="{{ url_for('download') }}" style="min-height: 38px; padding: 0 14px; font-size: 0.88rem;">Download</a>
+      </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="site-footer">
+      <div class="footer-nav-grid">
+        <div class="footer-brand">
+          <a class="brand" href="{{ url_for('index') }}" aria-label="Loqin home">
+            <span class="brand-mark" aria-hidden="true">
+              <img
+                src="{{ url_for('static', filename='loqin_logo_small.png') }}"
+                alt="Loqin logo"
+                width="28"
+                height="28"
+              />
+            </span>
+            <span class="brand-text">
+              <strong>Loqin</strong>
+              <small>Automated Wi-Fi Client</small>
+            </span>
+          </a>
+          <p>
+            Lightweight, discreet background client keeping VIT hostel Wi-Fi connected on Windows and macOS. Released under GNU GPLv3.
+          </p>
+          <div class="footer-actions">
+            <a class="button button-secondary" href="https://github.com/notaayushsrivastava/Loqin/issues" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">Report Issue</a>
+            <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">GitHub</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Downloads</h4>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('download') }}">Download Hub</a></li>
+            <li><a href="{{ url_for('download_thanks', os='windows') }}">Windows (.exe)</a></li>
+            <li><a href="{{ url_for('download_thanks', os='mac') }}">macOS (.dmg)</a></li>
+            <li><a href="https://github.com/notaayushsrivastava/Loqin/releases">GitHub Releases</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Platform Guides</h4>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('windows_guide') }}">Windows Setup Guide</a></li>
+            <li><a href="{{ url_for('macos_guide') }}">macOS Setup Guide</a></li>
+            <li><a href="{{ url_for('troubleshooting') }}">Troubleshooting Captive Portal</a></li>
+            <li><a href="{{ url_for('faq') }}">Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Project & Legal</h4>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+            <li><a href="{{ url_for('license_page') }}">GNU GPLv3 License</a></li>
+            <li><a href="https://github.com/notaayushsrivastava/Loqin">Source Repository</a></li>
+            <li><a href="https://aayushsrivastava.pythonanywhere.com">Developer Profile</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>Copyright © 2026 Aayush Srivastava. Open source community client.</p>
+        <p>Not affiliated with or endorsed by Vellore Institute of Technology.</p>
+      </div>
+    </footer>
+
+    {% block scripts %}
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% endblock %}
+  </body>
+</html>

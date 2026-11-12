@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Loqin Troubleshooting | Fix VIT Hostel Wi-Fi & Captive Portal Issues{% endblock %}
+
+{% block description %}Diagnose and solve common VIT hostel Wi-Fi captive portal login issues, session disconnects, invalid credentials, network transitions, and OS security prompts.{% endblock %}
+
+{% block canonical %}https://loqin.aayushsrivastava.com/troubleshooting{% endblock %}
+
+{% block content %}
+<main class="guide-main">
+  <div class="page-hero">
+    <p class="eyebrow">Help & Diagnostics</p>
+    <h1>Troubleshooting VIT Hostel Wi-Fi & Loqin</h1>
+    <p class="lede">
+      Encountering connectivity drops, login failures, or captive portal errors? Follow these proven troubleshooting steps to restore seamless automated Wi-Fi access.
+    </p>
+    <div class="badge-row">
+      <span class="badge badge-accent">Captive Portal Fixes</span>
+      <span class="badge">Session Drops</span>
+      <span class="badge badge-purple">Credential Errors</span>
+    </div>
+  </div>
+
+  <div class="guide-container">
+    <!-- Issue 1: Captive Portal Keeps Disconnecting -->
+    <section class="guide-card">
+      <h2>1. Wi-Fi Keeps Disconnecting or Asking for Portal Login</h2>
+      <p>
+        The VIT hostel captive portal system periodically terminates idle sessions or resets active client sessions when lease times expire.
+      </p>
+      <ul>
+        <li><strong>Ensure Loqin is active:</strong> Verify that the Loqin icon is present in your Windows system tray or macOS menu bar. If it is paused, right-click/click and select <em>Resume</em>.</li>
+        <li><strong>Check Device Session Limits:</strong> The campus network often enforces a limit on concurrent active sessions per student registration number (typically 2–3 devices). If your phone, tablet, and laptop are all connected, disconnect unused devices or log them out from the portal page.</li>
+        <li><strong>Trigger Manual Reconnect:</strong> Select <strong>Connect Now</strong> from the Loqin tray/menu icon to trigger an immediate handshake with the captive portal.</li>
+      </ul>
+    </section>
+
+    <!-- Issue 2: Invalid Credentials Error -->
+    <section class="guide-card">
+      <h2>2. "Invalid Credentials" or Authentication Rejection</h2>
+      <p>
+        If your registration credentials have changed or were mistyped during installation:
+      </p>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Check VTOP Password Expiration</h4>
+            <p>VIT student Wi-Fi credentials frequently expire or require synchronized password resets with your VTOP student portal.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Update Stored Credentials in Loqin</h4>
+            <p><strong>Windows:</strong> Right-click the Loqin tray icon &rarr; <em>Account Details</em> &rarr; enter updated registration number and password.<br>
+            <strong>macOS:</strong> Click the Loqin menu bar icon &rarr; <em>Update Credentials</em>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Issue 3: Moving Between Blocks / BSSID Roaming -->
+    <section class="guide-card">
+      <h2>3. Network Roaming & Switching Between Hostel Blocks</h2>
+      <p>
+        Moving your laptop from your hostel room to common rooms, dining halls, or academic blocks connects your Wi-Fi card to a new access point with a different local IP address.
+      </p>
+      <ul>
+        <li><strong>Allow Roaming Handshake:</strong> Loqin automatically detects IP address changes and pings the new gateway within seconds.</li>
+        <li><strong>Enable BSSID Performance Mode (Windows):</strong> If your laptop gets stuck on a weak access point from down the hallway, enable <em>Performance Mode</em> in the Loqin tray menu. Loqin will scan nearby BSSIDs and reconnect your adapter to the strongest Wi-Fi signal in your room.</li>
+      </ul>
+    </section>
+
+    <!-- Issue 4: Antivirus / SmartScreen / Gatekeeper Prompts -->
+    <section class="guide-card">
+      <h2>4. SmartScreen or Gatekeeper Warnings During Setup</h2>
+      <p>
+        Commercial code signing certificates cost hundreds of dollars annually. As an open-source student utility distributed for free, Loqin binaries are unsigned:
+      </p>
+      <div class="callout callout-warning">
+        <strong>Windows SmartScreen:</strong> Click <em>More info</em> on the blue pop-up, then click <strong>Run anyway</strong>. You can verify the integrity of the release against the open-source code on GitHub anytime.
+      </div>
+      <div class="callout callout-warning">
+        <strong>macOS Gatekeeper:</strong> If macOS states "Loqin cannot be opened because it is from an unidentified developer", open Finder &rarr; Applications &rarr; Right-click <strong>Loqin</strong> &rarr; click <strong>Open</strong> &rarr; confirm <strong>Open</strong>.
+      </div>
+    </section>
+
+    <!-- Issue 5: Clean Reinstall or Filing an Issue -->
+    <section class="guide-card">
+      <h2>5. Still Having Trouble? File a GitHub Issue</h2>
+      <p>
+        If your captive portal uses a custom URL or an unexpected authentication response, we can inspect the captive portal pattern and release an update.
+      </p>
+      <div class="cta-row">
+        <a class="button button-primary" href="https://github.com/notaayushsrivastava/Loqin/issues">
+          Submit an Issue on GitHub
+        </a>
+        <a class="button button-secondary" href="{{ url_for('faq') }}">
+          Read the FAQ &rarr;
+        </a>
+        <a class="button button-ghost" href="{{ url_for('download') }}">
+          Re-download Latest Version
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Download Loqin | VIT Hostel Wi-Fi Client for Windows & macOS{% endblock %}
+
+{% block description %}Download Loqin for Windows 10/11 and macOS 11+. Automated, background VIT hostel Wi-Fi captive portal client. Free and open source under GNU GPLv3.{% endblock %}
+
+{% block canonical %}https://loqin.aayushsrivastava.com/download{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Loqin Download",
+  "operatingSystem": "Windows 10, Windows 11, macOS 11+",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://loqin.aayushsrivastava.com/download",
+  "softwareVersion": "Latest"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<main class="download-hub-main">
+  <div class="page-hero">
+    <p class="eyebrow">Downloads & Releases</p>
+    <h1>Get Loqin for your desktop operating system</h1>
+    <p class="lede">
+      Choose the installer for your computer below. Loqin runs quietly in your system tray or menu bar, automatically authenticating with the VIT hostel captive portal whenever needed.
+    </p>
+    <div class="badge-row">
+      <span class="badge badge-accent">100% Free & Open Source</span>
+      <span class="badge badge-purple">GNU GPLv3 Licensed</span>
+      <span class="badge">Zero External Telemetry</span>
+    </div>
+  </div>
+
+  <div class="download-hub-grid">
+    <!-- Windows Download Card -->
+    <div class="platform-hub-card {% if client_os == 'windows' %}recommended{% endif %}">
+      {% if client_os == 'windows' %}
+        <span class="recommended-pill">Detected OS</span>
+      {% endif %}
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
+        </svg>
+      </div>
+      <h2>Loqin for Windows</h2>
+      <p class="platform-desc">
+        Standard Inno Setup installer. Configures credentials and optional Windows startup, then minimizes quietly to the system notification tray.
+      </p>
+
+      <ul class="platform-specs">
+        <li><span>Supported OS:</span> <strong>Windows 10 / Windows 11 (64-bit)</strong></li>
+        <li><span>Package Format:</span> <strong>Inno Setup (.exe)</strong></li>
+        <li><span>Credential Vault:</span> <strong>Windows Credential Manager</strong></li>
+        <li><span>Special Feature:</span> <strong>Wi-Fi BSSID Performance Mode</strong></li>
+      </ul>
+
+      <div class="cta-row" style="margin-top: auto;">
+        <a class="button button-primary button-with-logo" href="{{ url_for('download_thanks', os='windows') }}">
+          <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
+          </svg>
+          <span>Download for Windows</span>
+        </a>
+        <a class="button button-secondary" href="{{ url_for('windows_guide') }}">
+          Windows Setup Guide &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- macOS Download Card -->
+    <div class="platform-hub-card {% if client_os == 'mac' %}recommended{% endif %}">
+      {% if client_os == 'mac' %}
+        <span class="recommended-pill">Detected OS</span>
+      {% endif %}
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
+        </svg>
+      </div>
+      <h2>Loqin for macOS</h2>
+      <p class="platform-desc">
+        Apple Disk Image installer. Mount the DMG, drag to Applications, and authenticate with native macOS Keychain protection. Runs in your menu bar.
+      </p>
+
+      <ul class="platform-specs">
+        <li><span>Supported OS:</span> <strong>macOS 11 (Big Sur) through 15+</strong></li>
+        <li><span>Architecture:</span> <strong>Apple Silicon (M1/M2/M3/M4) & Intel</strong></li>
+        <li><span>Package Format:</span> <strong>Disk Image (.dmg)</strong></li>
+        <li><span>Credential Vault:</span> <strong>Apple Keychain Services</strong></li>
+      </ul>
+
+      <div class="cta-row" style="margin-top: auto;">
+        <a class="button button-primary button-with-logo" href="{{ url_for('download_thanks', os='mac') }}">
+          <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
+          </svg>
+          <span>Download for macOS</span>
+        </a>
+        <a class="button button-secondary" href="{{ url_for('macos_guide') }}">
+          macOS Setup Guide &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="guide-card" style="margin-top: 36px;">
+    <h2>System Requirements & Compatibility</h2>
+    <p>
+      Loqin is built to be extremely lightweight, using minimal RAM and zero noticeable CPU while idling in the background.
+    </p>
+
+    <table class="specs-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Supported Versions</th>
+          <th>Requirements</th>
+          <th>Tray/Status Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Windows</strong></td>
+          <td>Windows 10, Windows 11 (64-bit)</td>
+          <td>Active Wi-Fi adapter, standard user privileges</td>
+          <td>Taskbar Notification Area (next to clock)</td>
+        </tr>
+        <tr>
+          <td><strong>macOS</strong></td>
+          <td>macOS 11 (Big Sur), Monterey, Ventura, Sonoma, Sequoia+</td>
+          <td>Apple Silicon or 64-bit Intel processor</td>
+          <td>Top Menu Bar item</td>
+        </tr>
+        <tr>
+          <td><strong>Android / Mobile</strong></td>
+          <td>Not currently supported</td>
+          <td>Mobile OS background execution restrictions apply</td>
+          <td>See <a href="{{ url_for('faq') }}">FAQ</a> for details</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="guide-card" style="margin-top: 24px;">
+    <h2>Verification & GitHub Releases</h2>
+    <p>
+      Looking for historical versions, changelogs, or source archives? All official binaries and release tags are cataloged on GitHub.
+    </p>
+    <div class="cta-row">
+      <a class="button button-secondary" href="https://github.com/notaayushsrivastava/Loqin/releases">
+        Browse All GitHub Releases
+      </a>
+      <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin">
+        Inspect Source Code
+      </a>
+      <a class="button button-ghost" href="{{ url_for('troubleshooting') }}">
+        Troubleshooting Guide
+      </a>
+    </div>
+  </section>
+</main>
+{% endblock %}

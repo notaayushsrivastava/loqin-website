@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Loqin FAQ | VIT Hostel Wi-Fi Client Frequently Asked Questions{% endblock %}
+
+{% block description %}Find answers to frequently asked questions about Loqin: safety, credential storage, battery impact, macOS compatibility, and captive portal automation.{% endblock %}
+
+{% block canonical %}https://loqin.aayushsrivastava.com/faq{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Loqin safe to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Loqin is 100% open source under the GNU GPLv3 license. Your registration credentials are stored strictly on your local machine using the native OS credential vault (Windows Credential Manager or Apple Keychain) and are never transmitted to any third-party server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Loqin an official application of VIT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Loqin is an independent, open-source student-built project designed to eliminate repetitive captive portal logins for hostel residents. It is not affiliated with or endorsed by Vellore Institute of Technology."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Loqin drain laptop battery or CPU?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Loqin spends almost all of its lifecycle sleeping. It runs lightweight periodic ping checks every few seconds with virtually zero CPU overhead and negligible battery consumption."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Loqin work on macOS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Loqin natively supports macOS 11 (Big Sur) and newer on both Apple Silicon (M1/M2/M3/M4) and Intel architectures, living quietly in the menu bar."
+      }
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<main class="faq-main">
+  <div class="page-hero">
+    <p class="eyebrow">Frequently Asked Questions</p>
+    <h1>Everything you need to know about Loqin</h1>
+    <p class="lede">
+      Got questions about how Loqin manages Wi-Fi logins, stores passwords, or handles background connectivity? We have answers.
+    </p>
+  </div>
+
+  <div class="faq-grid">
+    <article class="faq-card">
+      <h3>What is Loqin?</h3>
+      <p>
+        Loqin is a lightweight desktop system tray client for Windows and macOS. It continuously monitors your hostel Wi-Fi connection and automatically re-authenticates with the campus captive portal whenever your login session drops or times out.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>Is Loqin safe? Where are my credentials stored?</h3>
+      <p>
+        Loqin is 100% open source and licensed under GNU GPLv3. It does not use insecure plaintext configuration files. On Windows, credentials are stored in the <strong>Windows Credential Manager</strong>. On macOS, credentials are protected by the <strong>Apple Keychain</strong>. Credentials never leave your machine except when transmitted directly to the campus captive portal gateway during authentication.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>Does Loqin track me or collect analytics?</h3>
+      <p>
+        No. Loqin contains zero tracking libraries, telemetrySDKs, analytics beacons, or remote logging. The app only sends requests to the local network captive portal gateway. You can inspect the entire Python codebase on our <a href="https://github.com/notaayushsrivastava/Loqin">GitHub repository</a>.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>Is Loqin affiliated with Vellore Institute of Technology (VIT)?</h3>
+      <p>
+        No. Loqin is an independent community project created by a student developer to help fellow students avoid having to repeatedly open browser tabs to re-authenticate with hostel Wi-Fi. It is not endorsed, operated, or officially affiliated with VIT.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>Does Loqin support macOS?</h3>
+      <p>
+        Yes! Loqin offers a dedicated macOS build distributed as a <code>.dmg</code> installer. It runs smoothly on both Apple Silicon (M1, M2, M3, M4) and Intel Macs running macOS 11 (Big Sur) through macOS Sequoia and newer.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>Why is there no mobile or Android app?</h3>
+      <p>
+        Modern mobile operating systems (especially Android 12+ and iOS) aggressively kill long-running background tasks and battery-saving foreground services to preserve mobile battery life, making persistent captive portal clients unreliable. Loqin is currently focused on providing the best possible background experience on desktop laptops.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>Does running Loqin drain my laptop battery?</h3>
+      <p>
+        No. Loqin is designed with efficiency as a primary priority. It spends over 99% of its runtime suspended, waking up for milliseconds to test network connectivity. Memory usage is typically under 30MB, and CPU consumption while idling is essentially 0%.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>How do I pause Loqin when using my mobile hotspot?</h3>
+      <p>
+        When you are off-campus or tethering to a mobile phone hotspot, right-click the Loqin icon in your Windows notification tray (or click the menu bar item on Mac) and select <strong>Pause</strong>. When you reconnect to VIT hostel Wi-Fi, simply select <strong>Resume</strong> or <strong>Connect Now</strong>.
+      </p>
+    </article>
+
+    <article class="faq-card">
+      <h3>How do I uninstall Loqin?</h3>
+      <p>
+        On Windows, go to <strong>Windows Settings &rarr; Apps &rarr; Installed Apps</strong> and click <strong>Uninstall</strong> on Loqin. On macOS, simply quit the app from your menu bar and drag Loqin from your <code>Applications</code> folder to the Trash.
+      </p>
+    </article>
+  </div>
+
+  <section class="guide-card" style="margin-top: 36px;">
+    <h2>Have more questions or need help?</h2>
+    <p>
+      Visit our documentation guides or open an issue on GitHub to connect with the project maintainer.
+    </p>
+    <div class="cta-row">
+      <a class="button button-primary" href="{{ url_for('download') }}">Download Loqin</a>
+      <a class="button button-secondary" href="{{ url_for('troubleshooting') }}">Troubleshooting Guide</a>
+      <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin/issues">Open GitHub Issue</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

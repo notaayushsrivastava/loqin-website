@@ -1,317 +1,329 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loqin PC - Automated VIT Hostel Wi-Fi Client</title>
-    <meta
-      name="description"
-      content="Loqin PC, the Windows tray app that keeps VIT hostel Wi-Fi connected automatically."
-    />
-    <meta name="google-site-verification" content="wESkyRU-RQyEaa_1OSwIGPUmGgT1EUUKeFDbYbPnvfk" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='loqin_icon.ico')}}">
-  </head>
-  <body>
-    <div class="backdrop backdrop-one"></div>
-    <div class="backdrop backdrop-two"></div>
+{% extends "base.html" %}
 
-    <header class="topbar">
-      <a class="brand" href="{{ url_for('index') }}" aria-label="Loqin home">
-        <span class="brand-mark" aria-hidden="true">
-          <img
-            src="{{url_for('static', filename = 'loqin_logo_small.png')}}"
-            alt=""
-          />
-        </span>
-        <span class="brand-text">
-          <strong>Loqin</strong>
-          <small>PC Wi-Fi Client</small>
-        </span>
-      </a>
-      <nav class="topnav" aria-label="Primary">
-        <a href="#features">Features</a>
-        <a href="{{ url_for('download') }}">Download</a>
-        <a href="#developer">About Developer</a>
-      </nav>
-    </header>
+{% block title %}Loqin | VIT Hostel Wi-Fi Auto Login for Windows & macOS{% endblock %}
 
-    <main id="home">
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Automated VIT Hostel Wi-Fi Client</p>
-          <h1>Connect once. Loqin keeps the rest in the background.</h1>
-          <p class="lede">
-            Loqin PC is a lightweight Windows system tray app that automatically
-            authenticates and keeps your hostel Wi-Fi session alive with a clean,
-            discreet workflow.
-          </p>
+{% block description %}Automatically reconnect to VIT hostel Wi-Fi with Loqin, a lightweight client for Windows and macOS. Set up once and let Loqin handle captive portal authentication.{% endblock %}
 
-          <div class="cta-row" id="download">
-            <a
-              class="button button-primary button-with-logo"
-              href="{{ url_for('download', os='windows') }}"
-            >
-              <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
-              </svg>
-              <span>Download for Windows</span>
-            </a>
-            <a class="button button-secondary button-with-logo" href="{{ url_for('download', os='mac') }}">
-              <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
-              </svg>
-              <span>Download for macOS</span>
-            </a>
-            <a class="button button-secondary" href="https://github.com/notaayushsrivastava/Loqin/releases">
-              View Releases
-            </a>
-            <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin">
-              Source Code
-            </a>
+{% block canonical %}https://loqin.aayushsrivastava.com/{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Loqin",
+  "alternateName": "Loqin PC",
+  "operatingSystem": "Windows 10, Windows 11, macOS 11+",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "Automated VIT Hostel Wi-Fi client that runs quietly in the background and restores captive portal logins seamlessly.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://loqin.aayushsrivastava.com/",
+  "downloadUrl": "https://loqin.aayushsrivastava.com/download",
+  "softwareVersion": "Latest",
+  "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+  "author": {
+    "@type": "Person",
+    "name": "Aayush Srivastava",
+    "url": "https://github.com/notaayushsrivastava"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<main id="home">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Automated VIT Hostel Wi-Fi Client</p>
+      <h1>Connect once. Loqin keeps the rest in the background.</h1>
+      <p class="lede">
+        Loqin is a lightweight desktop app for Windows and macOS that automatically
+        authenticates and keeps your hostel Wi-Fi session alive with a clean,
+        discreet workflow.
+      </p>
+
+      <div class="cta-row" id="download">
+        <a
+          class="button button-primary button-with-logo"
+          href="{{ url_for('download_thanks', os='windows') }}"
+        >
+          <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
+          </svg>
+          <span>Download for Windows</span>
+        </a>
+        <a class="button button-secondary button-with-logo" href="{{ url_for('download_thanks', os='mac') }}">
+          <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
+          </svg>
+          <span>Download for macOS</span>
+        </a>
+        <a class="button button-secondary" href="{{ url_for('download') }}">
+          Download Hub
+        </a>
+        <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin">
+          Source Code
+        </a>
+      </div>
+
+      <ul class="trust-row" aria-label="Product highlights">
+        <li>Windows 10/11 & macOS 11+</li>
+        <li>Auto re-authentication</li>
+        <li>Native OS credential storage</li>
+      </ul>
+    </div>
+
+    <div class="hero-card skeleton-card">
+      <div class="banner-frame">
+        <img
+          src="{{ url_for('static', filename='wizard_banner.bmp') }}"
+          alt="Loqin setup wizard banner preview"
+          width="480"
+          height="160"
+        />
+        <div class="banner-overlay">
+          <span class="banner-tag">Loqin Client</span>
+          <strong>Built for fast setup and quiet background control.</strong>
+        </div>
+      </div>
+      <div class="status-shell">
+        <div class="status-light"></div>
+        <span>Live monitoring</span>
+      </div>
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <div>
+            <p>Connection status</p>
+            <h2>Protected and ready</h2>
           </div>
+          <span class="pill">System Tray / Menu Bar</span>
+        </div>
 
-          <ul class="trust-row" aria-label="Product highlights">
-            <li>Windows/macOS tray app</li>
-            <li>Auto re-authentication</li>
-            <li>Secure credential storage</li>
+        <div class="metric-grid">
+          <article class="skeleton-card">
+            <span>Reconnect</span>
+            <strong>Automated</strong>
+          </article>
+          <article class="skeleton-card">
+            <span>Storage</span>
+            <strong>OS Keyring</strong>
+          </article>
+          <article class="skeleton-card">
+            <span>Startup</span>
+            <strong>Optional Auto-start</strong>
+          </article>
+          <article class="skeleton-card">
+            <span>Mode</span>
+            <strong>Background</strong>
+          </article>
+        </div>
+
+        <div class="tray-card skeleton-card">
+          <p>Quick access tray / menu</p>
+          <ul>
+            <li>Status Check</li>
+            <li>Connect Now</li>
+            <li>Pause / Resume</li>
+            <li>BSSID Performance Mode (Windows)</li>
+            <li>Account Details</li>
           </ul>
         </div>
-
-        <div class="hero-card skeleton-card">
-          <div class="banner-frame">
-            <img
-              src="{{url_for('static', filename = 'wizard_banner.bmp')}}"
-              alt="Loqin wizard banner"
-            />
-            <div class="banner-overlay">
-              <span class="banner-tag">Loqin PC</span>
-              <strong>Built for fast setup and quiet background control.</strong>
-            </div>
-          </div>
-          <div class="status-shell">
-            <div class="status-light"></div>
-            <span>Live monitoring</span>
-          </div>
-          <div class="dashboard">
-            <div class="dashboard-header">
-              <div>
-                <p>Connection status</p>
-                <h2>Protected and ready</h2>
-              </div>
-              <span class="pill">System Tray</span>
-            </div>
-
-            <div class="metric-grid">
-              <article class="skeleton-card">
-                <span>Reconnect</span>
-                <strong>Automated</strong>
-              </article>
-              <article class="skeleton-card">
-                <span>Storage</span>
-                <strong>Credential Manager</strong>
-              </article>
-              <article class="skeleton-card">
-                <span>Startup</span>
-                <strong>Optional</strong>
-              </article>
-              <article class="skeleton-card">
-                <span>Mode</span>
-                <strong>Background</strong>
-              </article>
-            </div>
-
-            <div class="tray-card skeleton-card">
-              <p>Right-click tray menu</p>
-              <ul>
-                <li>Status</li>
-                <li>Connect Now</li>
-                <li>Pause / Resume</li>
-                <li>Performance Mode</li>
-                <li>Account Details</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="feature-section" id="features">
-        <div class="section-heading">
-          <p class="eyebrow">Features</p>
-          <h2>What does Loqin really do?</h2>
-          <p>
-            Switch through the key experiences: automation, security, tray control,
-            and the setup flow.
-          </p>
-        </div>
-
-        <div class="tabs" role="tablist" aria-label="Loqin features">
-          <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-automation" id="tab-automation" data-tab="automation">
-            Automation
-          </button>
-          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-security" id="tab-security" data-tab="security">
-            Security
-          </button>
-          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tray" id="tab-tray" data-tab="tray">
-            Tray UX
-          </button>
-          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-setup" id="tab-setup" data-tab="setup">
-            Setup
-          </button>
-        </div>
-
-        <div class="panels">
-          <article class="panel skeleton-card scroll-skeleton is-active" role="tabpanel" id="panel-automation" aria-labelledby="tab-automation" data-panel="automation" data-load-on-scroll>
-            <h3>Automation that stays out of the way</h3>
-            <p>
-              Loqin checks the connection at regular intervals and re-authenticates
-              when the session drops, so the app can do its job while you keep working.
-            </p>
-            <div class="panel-list">
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Background pinging</strong>
-                <span>Monitors connectivity silently</span>
-              </div>
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Instant recovery</strong>
-                <span>Reconnects without opening the portal manually</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="panel skeleton-card scroll-skeleton" role="tabpanel" id="panel-security" aria-labelledby="tab-security" data-panel="security" data-load-on-scroll hidden>
-            <h3>Security built around native Windows tools</h3>
-            <p>
-              Credentials are stored through the OS credential system with the
-              keyring library, keeping the login experience simple and local.
-            </p>
-            <div class="panel-list">
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Native storage</strong>
-                <span>Uses Windows Credential Manager</span>
-              </div>
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Focused permissions</strong>
-                <span>Only what the app needs to connect</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="panel skeleton-card scroll-skeleton" role="tabpanel" id="panel-tray" aria-labelledby="tab-tray" data-panel="tray" data-load-on-scroll hidden>
-            <h3>Tray-first controls for daily use</h3>
-            <p>
-              The app runs discreetly beside the clock, with quick actions for
-              status, speed graph access, reconnecting, pausing, and settings.
-            </p>
-            <div class="panel-list">
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Quick menu</strong>
-                <span>Connect, pause, resume, and exit from one place</span>
-              </div>
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Performance mode</strong>
-                <span>Connects to the best BSSID on the network</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="panel skeleton-card scroll-skeleton" role="tabpanel" id="panel-setup" aria-labelledby="tab-setup" data-panel="setup" data-load-on-scroll hidden>
-            <h3>Easy installation and startup setup</h3>
-            <p>
-              The installer asks for registration details up front and can launch
-              automatically when Windows starts.
-            </p>
-            <div class="panel-list">
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Wizard-based install</strong>
-                <span>Enter credentials during setup</span>
-              </div>
-              <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
-                <strong>Auto-start option</strong>
-                <span>Launches on boot when enabled</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="download-section skeleton-card scroll-skeleton" data-load-on-scroll>
-        <div>
-          <p class="eyebrow">Downloads</p>
-          <h2>Get the installer or inspect the latest release.</h2>
-          <p>
-            The buttons below point to the official GitHub release flow for the
-            project.
-          </p>
-        </div>
-        <div class="cta-row">
-          <a
-            class="button button-primary button-with-logo"
-            href="{{ url_for('download', os='windows') }}"
-          >
-            <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
-            </svg>
-            <span>Download for Windows</span>
-          </a>
-          <a class="button button-secondary button-with-logo" href="{{ url_for('download', os='mac') }}">
-            <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
-            </svg>
-            <span>Download for macOS</span>
-          </a>
-          <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin/releases">
-            Browse Releases
-          </a>
-        </div>
-      </section>
-
-      <section class="developer-section" id="developer">
-        <div class="section-heading">
-          <p class="eyebrow">About Developer</p>
-          <p>
-            The project is published under the GPLv3 license and maintained on
-            GitHub with releases, source code, and build instructions.
-          </p>
-        </div>
-
-        <div class="developer-card skeleton-card scroll-skeleton" data-load-on-scroll>
-          <div class="avatar">
-            <img src="{{url_for('static', filename='153167411.png')}}" alt="Aayush Srivastava" />
-          </div>
-          <div>
-            <h3>Aayush Srivastava</h3>
-            <p>
-              Developer of Loqin PC, a lightweight Windows automation tool aimed at
-              making hostel Wi-Fi login less repetitive and more reliable.
-            </p>
-            <div class="developer-links">
-              <a href="https://github.com/notaayushsrivastava/Loqin">GitHub Repository</a>
-              <a href="https://github.com/notaayushsrivastava">Developer Profile</a>
-              <a href="https://github.com/notaayushsrivastava/Loqin/issues">Bug Report</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-copy">
-        <p>Copyright © 2026 Aayush Srivastava. Contact: <a href="https://aayushsrivastava.pythonanywhere.com">Here</a></p>
       </div>
-      <p><a href="{{ url_for('privacy') }}">Privacy Policy</a> · <a href="{{ url_for('license_page') }}">GNU GPLv3 License</a></p>
-      <div class="footer-actions">
-        <a class="button button-secondary" href="https://github.com/notaayushsrivastava/Loqin/issues">Bug Report</a>
-        <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin">View the original project</a>
-      </div>
-    </footer>
+    </div>
+  </section>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-  </body>
-</html>
+  <section class="feature-section" id="features">
+    <div class="section-heading">
+      <p class="eyebrow">Features</p>
+      <h2>What does Loqin really do?</h2>
+      <p>
+        Explore how Loqin automates Wi-Fi authentication, keeps credentials safe on your device, and stays out of your way.
+      </p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Loqin features">
+      <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-automation" id="tab-automation" data-tab="automation">
+        Automation
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-security" id="tab-security" data-tab="security">
+        Security
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tray" id="tab-tray" data-tab="tray">
+        Desktop UX
+      </button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-setup" id="tab-setup" data-tab="setup">
+        Setup
+      </button>
+    </div>
+
+    <div class="panels">
+      <article class="panel skeleton-card scroll-skeleton is-active" role="tabpanel" id="panel-automation" aria-labelledby="tab-automation" data-panel="automation" data-load-on-scroll>
+        <h3>Automation that stays out of the way</h3>
+        <p>
+          Loqin checks the hostel network at regular intervals and instantly re-authenticates when the captive portal drops, so your work and downloads proceed without manual intervention.
+        </p>
+        <div class="panel-list">
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Background pinging</strong>
+            <span>Monitors connectivity silently with minimal CPU/battery impact</span>
+          </div>
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Instant recovery</strong>
+            <span>Reconnects without repeatedly opening the captive portal browser tab</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel skeleton-card scroll-skeleton" role="tabpanel" id="panel-security" aria-labelledby="tab-security" data-panel="security" data-load-on-scroll hidden>
+        <h3>Security built around native OS vaults</h3>
+        <p>
+          Credentials never leave your machine. Loqin leverages native OS security mechanisms via the Python keyring library.
+        </p>
+        <div class="panel-list">
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Native OS storage</strong>
+            <span>Uses Windows Credential Manager on Windows and Apple Keychain on macOS</span>
+          </div>
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Zero external tracking</strong>
+            <span>No telemetry, tracking, or external server credential routing</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel skeleton-card scroll-skeleton" role="tabpanel" id="panel-tray" aria-labelledby="tab-tray" data-panel="tray" data-load-on-scroll hidden>
+        <h3>Discreet desktop controls for daily use</h3>
+        <p>
+          Loqin runs quietly in the Windows notification area (beside the clock) or the macOS menu bar, giving you instant one-click controls.
+        </p>
+        <div class="panel-list">
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Quick actions</strong>
+            <span>Check status, pause automation during maintenance, or connect immediately</span>
+          </div>
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Performance mode (Windows)</strong>
+            <span>Scans and connects to the strongest Wi-Fi access point (BSSID) in your room</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel skeleton-card scroll-skeleton" role="tabpanel" id="panel-setup" aria-labelledby="tab-setup" data-panel="setup" data-load-on-scroll hidden>
+        <h3>Quick setup for both platforms</h3>
+        <p>
+          Get up and running in under a minute with tailored installers for both operating systems.
+        </p>
+        <div class="panel-list">
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>Windows Inno Wizard</strong>
+            <span>Enter registration credentials during install with optional boot auto-start</span>
+          </div>
+          <div class="skeleton-card scroll-skeleton" data-load-on-scroll>
+            <strong>macOS Drag-and-Drop</strong>
+            <span>Mount the DMG, drag to Applications, and authenticate seamlessly</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Platform Guides Teaser Section -->
+  <section class="feature-section">
+    <div class="section-heading">
+      <p class="eyebrow">Documentation & Guides</p>
+      <h2>Step-by-step setup and network troubleshooting</h2>
+      <p>
+        Follow dedicated guides for your operating system or troubleshoot common captive portal issues.
+      </p>
+    </div>
+
+    <div class="skeleton-grid">
+      <div class="skeleton-card scroll-skeleton guide-card" data-load-on-scroll>
+        <h3>Windows Guide</h3>
+        <p>Step-by-step installation, Windows Credential Manager storage, boot auto-start, and BSSID mode.</p>
+        <a class="button button-secondary" href="{{ url_for('windows_guide') }}">Read Windows Guide &rarr;</a>
+      </div>
+      <div class="skeleton-card scroll-skeleton guide-card" data-load-on-scroll>
+        <h3>macOS Guide</h3>
+        <p>DMG installation, macOS Keychain permissions, menu bar usage, and supported Apple Silicon / Intel versions.</p>
+        <a class="button button-secondary" href="{{ url_for('macos_guide') }}">Read macOS Guide &rarr;</a>
+      </div>
+      <div class="skeleton-card scroll-skeleton guide-card" data-load-on-scroll>
+        <h3>Troubleshooting & FAQ</h3>
+        <p>Resolutions for session drops, captive portal redirects, password changes, and frequently asked questions.</p>
+        <a class="button button-secondary" href="{{ url_for('troubleshooting') }}">Troubleshoot Issues &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="download-section skeleton-card scroll-skeleton" data-load-on-scroll>
+    <div>
+      <p class="eyebrow">Downloads</p>
+      <h2>Get the installer for your operating system.</h2>
+      <p>
+        Direct installers are signed and hosted on GitHub Releases under GNU GPLv3.
+      </p>
+    </div>
+    <div class="cta-row">
+      <a
+        class="button button-primary button-with-logo"
+        href="{{ url_for('download_thanks', os='windows') }}"
+      >
+        <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
+        </svg>
+        <span>Download for Windows</span>
+      </a>
+      <a class="button button-secondary button-with-logo" href="{{ url_for('download_thanks', os='mac') }}">
+        <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M16.7 12.8c0-2 1.7-3 1.8-3.1-1-1.4-2.5-1.6-3.1-1.6-1.3-.1-2.5.8-3.1.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.8.9-3.6 2.3-1.6 2.8-.4 6.8 1.1 8.9.7 1 1.6 2.2 2.8 2.1 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-4.1zM14.6 6.7c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.7-1 2.7 1 0 2-.5 2.8-1.3z" />
+        </svg>
+        <span>Download for macOS</span>
+      </a>
+      <a class="button button-secondary" href="{{ url_for('download') }}">
+        Browse Download Hub
+      </a>
+      <a class="button button-ghost" href="https://github.com/notaayushsrivastava/Loqin/releases">
+        All Releases
+      </a>
+    </div>
+  </section>
+
+  <section class="developer-section" id="developer">
+    <div class="section-heading">
+      <p class="eyebrow">About Developer</p>
+      <p>
+        The project is published under the GNU GPLv3 license and maintained openly on
+        GitHub with releases, source code, and build instructions.
+      </p>
+    </div>
+
+    <div class="developer-card skeleton-card scroll-skeleton" data-load-on-scroll>
+      <div class="avatar">
+        <img
+          src="{{ url_for('static', filename='153167411.png') }}"
+          alt="Aayush Srivastava"
+          width="76"
+          height="76"
+        />
+      </div>
+      <div>
+        <h3>Aayush Srivastava</h3>
+        <p>
+          Developer of Loqin, an open-source Wi-Fi automation client built to eliminate repetitive hostel captive portal logins and maintain seamless internet access.
+        </p>
+        <div class="developer-links">
+          <a href="https://github.com/notaayushsrivastava/Loqin">GitHub Repository</a>
+          <a href="https://github.com/notaayushsrivastava">Developer Profile</a>
+          <a href="https://github.com/notaayushsrivastava/Loqin/issues">Bug Reports</a>
+          <a href="{{ url_for('faq') }}">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

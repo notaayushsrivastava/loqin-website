@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Loqin for Windows | VIT Hostel Wi-Fi Auto Login Setup Guide{% endblock %}
+
+{% block description %}Step-by-step guide to installing and configuring Loqin on Windows 10 & 11. Automate VIT hostel Wi-Fi login with Windows Credential Manager integration and tray controls.{% endblock %}
+
+{% block canonical %}https://loqin.aayushsrivastava.com/windows{% endblock %}
+
+{% block content %}
+<main class="guide-main">
+  <div class="page-hero">
+    <p class="eyebrow">Windows Documentation</p>
+    <h1>Loqin for Windows Setup Guide</h1>
+    <p class="lede">
+      Learn how to install, set up, and get the most out of Loqin on Windows 10 and Windows 11. Enjoy seamless, zero-touch reconnection to VIT hostel Wi-Fi.
+    </p>
+    <div class="badge-row">
+      <span class="badge badge-accent">Windows 10 & 11 (64-bit)</span>
+      <span class="badge">Inno Setup Installer</span>
+      <span class="badge badge-purple">Windows Credential Manager</span>
+    </div>
+  </div>
+
+  <div class="guide-container">
+    <section class="guide-card">
+      <h2>1. Installation Walkthrough</h2>
+      <p>
+        Installing Loqin on Windows takes less than a minute. Follow these steps to configure your automated login:
+      </p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Download the Windows Installer</h4>
+            <p>Download <code>Install_Loqin.exe</code> directly from the <a href="{{ url_for('download') }}">Download Hub</a> or GitHub Releases.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Run the Setup Wizard</h4>
+            <p>Double-click the installer. If Windows SmartScreen prompts you with an unverified publisher notice, click <em>More info</em> and then <em>Run anyway</em> (Loqin is open-source software built by a student developer).</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Enter Your Wi-Fi Credentials</h4>
+            <p>During the setup wizard, input your VIT registration number and Wi-Fi password. Loqin immediately saves them directly into the native Windows Credential Manager.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Enable Auto-Start (Recommended)</h4>
+            <p>Leave the "Launch at Windows startup" option checked so Loqin starts silently in the background every time you boot your laptop.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Check the Notification Tray</h4>
+            <p>Once installation finishes, Loqin appears as an icon in your taskbar notification area (beside the clock). The status indicator turns green when authenticated.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="button button-primary button-with-logo" href="{{ url_for('download_thanks', os='windows') }}">
+          <svg class="button-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M2.7 3.7 11 2.5v8.7H2.7zm9.6-1.4 9-1.3v10.2h-9zM2.7 12.8H11v8.7l-8.3-1.2zm9.6 0h9v10.2l-9-1.3z" />
+          </svg>
+          <span>Download Windows Installer</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="guide-card">
+      <h2>2. How Windows Security & Credentials Work</h2>
+      <p>
+        Your login details are vital. Loqin uses Microsoft Windows' built-in security infrastructure rather than plain text configuration files:
+      </p>
+      <ul>
+        <li><strong>Windows Credential Manager:</strong> Stored securely via the Python <code>keyring</code> library in the Windows Generic Credentials store.</li>
+        <li><strong>User Isolation:</strong> Only processes running under your Windows user profile can retrieve the saved credential token.</li>
+        <li><strong>Zero Cloud Sync:</strong> Loqin never uploads credentials to any remote server or third-party database. Authentication requests go strictly to the hostel captive portal gateway.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Need to update your Wi-Fi password?</strong> You can change your password anytime by right-clicking the Loqin tray icon and selecting <em>Account Details</em>, or by updating the entry in the Windows Credential Manager.
+      </div>
+    </section>
+
+    <section class="guide-card">
+      <h2>3. System Tray Controls & Performance Mode</h2>
+      <p>
+        Right-clicking the Loqin tray icon in the taskbar reveals quick controls:
+      </p>
+      <ul>
+        <li><strong>Status:</strong> Shows current connection state (Connected, Authenticating, or Disconnected).</li>
+        <li><strong>Connect Now:</strong> Forces an immediate captive portal re-authentication probe.</li>
+        <li><strong>Pause / Resume:</strong> Temporarily stops automatic pings (useful during maintenance or when using mobile hotspot).</li>
+        <li><strong>Performance Mode (Windows Exclusive):</strong> Scans nearby Wi-Fi access points and intelligently reconnects your Wi-Fi adapter to the BSSID with the highest signal quality in your hostel block.</li>
+        <li><strong>Exit:</strong> Completely shuts down Loqin until your next boot.</li>
+      </ul>
+    </section>
+
+    <section class="guide-card">
+      <h2>4. Updating & Uninstallation</h2>
+      <p>
+        To update to a newer version of Loqin, simply download the latest installer and run it. The setup wizard automatically upgrades the existing binaries while preserving your saved configuration.
+      </p>
+      <p>
+        To uninstall Loqin, open Windows <strong>Settings &rarr; Apps &rarr; Installed Apps</strong>, search for <em>Loqin</em>, and click <strong>Uninstall</strong>. The uninstaller cleanly removes all application files and background startup registry entries.
+      </p>
+      <div class="cta-row">
+        <a class="button button-secondary" href="{{ url_for('troubleshooting') }}">Troubleshooting Common Issues &rarr;</a>
+        <a class="button button-ghost" href="{{ url_for('faq') }}">Read Windows FAQs</a>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}
