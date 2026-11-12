@@ -135,11 +135,13 @@ def installer():
 
 VERSION_PATTERN = re.compile(r'^[0-9A-Za-z\.\-]+$')
 ALLOWED_DOWNLOAD_FILES = {
+    'Loqin_Store.msi': 'application/x-msi',
     'Loqin_Store.msix': 'application/msix',
     'Install_Loqin_WinGet.exe': 'application/vnd.microsoft.portable-executable',
 }
 
 
+@app.get('/downloads/<version>/Loqin_Store.msi')
 @app.get('/downloads/<version>/Loqin_Store.msix')
 @app.get('/downloads/<version>/Install_Loqin_WinGet.exe')
 def download_versioned_installer(version: str):

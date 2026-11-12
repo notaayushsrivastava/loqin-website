@@ -109,20 +109,25 @@ class TestLoqinSeoAndRoutes(unittest.TestCase):
         self.assertIn('"@type": "FAQPage"', faq_resp.get_data(as_text=True))
 
     def test_versioned_download_routes(self):
-        # Valid version with file existing in public/downloads/1.8.0/Loqin_Store.msix
-        response = self.client.get('/downloads/1.8.0/Loqin_Store.msix')
+        # Valid version with file existing in public/downloads/1.8.0/Loqin_Store.msi
+        response = self.client.get('/downloads/1.8.0/Loqin_Store.msi')
         self.assertEqual(response.status_code, 200)
-        self.assertIn('application/msix', response.content_type)
+        self.assertIn('application/x-msi', response.content_type)
         self.assertIn('attachment', response.headers.get('Content-Disposition', ''))
-        self.assertIn('Loqin_Store.msix', response.headers.get('Content-Disposition', ''))
+        self.assertIn('Loqin_Store.msi', response.headers.get('Content-Disposition', ''))
         self.assertIn('immutable', response.headers.get('Cache-Control', ''))
 
+        # Also test Install_Loqin_WinGet.exe
+        exe_resp = self.client.get('/downloads/1.8.0/Install_Loqin_WinGet.exe')
+        self.assertEqual(exe_resp.status_code, 200)
+        self.assertIn('application/vnd.microsoft.portable-executable', exe_resp.content_type)
+
         # Non-existent version
-        non_existent = self.client.get('/downloads/9.9.9/Loqin_Store.msix')
+        non_existent = self.client.get('/downloads/9.9.9/Loqin_Store.msi')
         self.assertEqual(non_existent.status_code, 404)
 
         # Invalid version / path traversal characters
-        traversal = self.client.get('/downloads/..%2F../Loqin_Store.msix')
+        traversal = self.client.get('/downloads/..%2F../Loqin_Store.msi')
         self.assertEqual(traversal.status_code, 404)
 
 
