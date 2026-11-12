@@ -1,6 +1,7 @@
 import hmac
 import json
 import os
+import re
 from pathlib import Path
 from datetime import datetime
 
@@ -130,6 +131,29 @@ def installer():
     if client_os == 'mac':
         return redirect(MAC_OS_INSTALLER_URL)
     return redirect(INSTALLER_URL)
+
+
+VERSION_PATTERN = re.compile(r'^[0-9A-Za-z\.\-]+$')
+
+
+@app.get('/downloads/<version>/Install_Loqin_WinGet.exe')
+def download_winget_installer(version: str):
+    if not VERSION_PATTERN.match(version):
+        abort(404)
+
+    downloads_dir = Path(app.static_folder) / 'downloads' / version
+    file_path = downloads_dir / 'Install_Loqin_WinGet.exe'
+    if not file_path.is_file():
+        abort(404)
+
+    response = send_from_directory(
+        downloads_dir,
+        'Install_Loqin_WinGet.exe',
+        as_attachment=True,
+        mimetype='application/vnd.microsoft.portable-executable',
+    )
+    response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+    return response
 
 
 @app.get('/privacy')

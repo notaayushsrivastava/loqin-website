@@ -68,6 +68,7 @@ class TestLoqinSeoAndRoutes(unittest.TestCase):
         self.assertIn('User-agent: *', text)
         self.assertIn('Allow: /', text)
         self.assertIn('Disallow: /download/thanks', text)
+        self.assertIn('Disallow: /downloads/', text)
         self.assertIn('Disallow: /installer', text)
         self.assertIn('Sitemap: https://loqin.aayushsrivastava.com/sitemap.xml', text)
 
@@ -106,6 +107,23 @@ class TestLoqinSeoAndRoutes(unittest.TestCase):
         # FAQ page should contain FAQPage schema
         faq_resp = self.client.get('/faq')
         self.assertIn('"@type": "FAQPage"', faq_resp.get_data(as_text=True))
+
+    def test_winget_installer_route(self):
+        # Valid version with file existing in public/downloads/1.8.0/Install_Loqin_WinGet.exe
+        response = self.client.get('/downloads/1.8.0/Install_Loqin_WinGet.exe')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('application/vnd.microsoft.portable-executable', response.content_type)
+        self.assertIn('attachment', response.headers.get('Content-Disposition', ''))
+        self.assertIn('Install_Loqin_WinGet.exe', response.headers.get('Content-Disposition', ''))
+        self.assertIn('immutable', response.headers.get('Cache-Control', ''))
+
+        # Non-existent version
+        non_existent = self.client.get('/downloads/9.9.9/Install_Loqin_WinGet.exe')
+        self.assertEqual(non_existent.status_code, 404)
+
+        # Invalid version / path traversal characters
+        traversal = self.client.get('/downloads/..%2F../Install_Loqin_WinGet.exe')
+        self.assertEqual(traversal.status_code, 404)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /download/thanks
+Disallow: /downloads/
 Disallow: /push-notifications
 Disallow: /installer
 
